@@ -16,12 +16,33 @@ public class StreamTest6 {
         Student student3 = new Student("七猫", 20, 70);
         Student student4 = new Student("5猫", 17, 80);
         List<Student> list = Arrays.asList(student1, student2, student3, student4);
+
+        // 分组
+        list.stream().collect(Collectors.groupingBy(Student::getScore)).forEach((f, studentList) -> {
+            System.out.print(f + "-");
+            System.out.println(studentList.stream().map(Student::getName).collect(Collectors.joining(", ")));
+        });
+        System.out.println("============");
+
+        // 分组 + count(*)
+        list.stream().collect(Collectors.groupingBy(Student::getName, Collectors.counting())).forEach((d, c) -> System.out.println(d + "-" + c));
+        System.out.println("============");
+
+        // 分组 + avg()
+        list.stream().collect(Collectors.groupingBy(Student::getName, Collectors.averagingDouble(Student::getScore))).forEach((d, a) -> System.out.println(d + "-" + a));
         //按照名字进行分组
-//        Map<String, List<Student>> map = list.stream().collect(Collectors.groupingBy(Student::getName));
-//        System.out.println(map);
+        // Map<String, List<Student>> map = list.stream().collect(Collectors.groupingBy(Student::getName));
+        // System.out.println(map);
         //分区,分区其实就是分组的一种特殊情况，只有false和true两种情况
-        Map<Boolean, List<Student>> booleanListMap = list.stream().collect(Collectors.partitioningBy(student -> student.getScore() >= 90));
-        System.out.println(booleanListMap);
+        System.out.println("============");
+        list.stream().collect(Collectors.partitioningBy(s -> s.getScore() > 85)).get(true).forEach(s -> System.out.println(s.getName()));
+
+        //Map<Boolean, List<Student>> booleanListMap = list.stream().collect(Collectors.partitioningBy(student -> student.getScore() >= 90));
+        //System.out.println(booleanListMap);
+
+
+
+
     }
 }
 
@@ -61,5 +82,14 @@ class Student {
         this.name = name;
         this.age = age;
         this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", score=" + score +
+                '}';
     }
 }

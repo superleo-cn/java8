@@ -24,6 +24,9 @@ public class StreamTest3 {
         //System.out.println("result1: "+result1);
         //System.out.println("result2: " + result2);
         //JDK为我们提供的一次进行多种操作
+
+//        stream.forEach(System.out::println);
+
         IntSummaryStatistics summaryStatistics = stream.filter(e -> e > 2).mapToInt(e -> e * 2).skip(2).limit(2).summaryStatistics();
         System.out.println(summaryStatistics.getMax());
         System.out.println(summaryStatistics.getMin());

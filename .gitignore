@@ -11,7 +11,7 @@ target
 .settings/
 .project
 .classpath
-out
+target
 
 # idea ignore
 .idea/

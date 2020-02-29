@@ -12,7 +12,17 @@ import java.util.Objects;
  * 参考来链接：这个是我工作中遇到后个人工作体会分享 - Piao飘的文章 - 知乎
  * https://zhuanlan.zhihu.com/p/101555662
  */
-public class UnitTest {
+public class UnitTest implements AutoCloseable {
+
+
+    @Override
+    public void close() throws Exception {
+        System.out.println("close it");
+    }
+
+    public void process() {
+        System.out.println("processs");
+    }
 
     @Test
     public void test() {
@@ -20,6 +30,21 @@ public class UnitTest {
         double value = list.stream().peek(e -> System.out.println("from stream " + e)).filter(Objects::nonNull).map(String::valueOf).peek(e -> System.out.println("from String " + e)).map(BigDecimal::new)
                 .peek(e -> System.out.println("from map " + e)).reduce(BigDecimal.ZERO, BigDecimal::add).doubleValue();
         System.out.println(value);
+    }
+
+
+
+    @Test
+    public void testClose() {
+        try(UnitTest a = new UnitTest()) {
+            a.process();
+            throw new RuntimeException("Exception happened.");
+        } catch (Exception ex) {
+           ex.printStackTrace();
+        } finally {
+            System.out.println("finally");
+        }
+
     }
 
 /*

@@ -6,6 +6,7 @@ import com.poplar.enums.Type;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created BY poplar ON 2019/12/26
@@ -22,6 +23,10 @@ public class FindAndMatch {
                 new Dish("prawns", false, 300, Type.FISH),
                 new Dish("chicken", false, 400, Type.MEAT),
                 new Dish("salmon", false, 450, Type.FISH));
+
+
+        List<Dish> dishes = menu.stream().filter(d -> d.getName().contains("f")).collect(Collectors.toList());
+        dishes.forEach(f -> System.out.println(f.getName()));
 
         if (menu.stream().anyMatch(s -> s.isVegetarian())) {
             System.out.println("this menu have somewhat Vegetarian friendly");
