@@ -1,7 +1,6 @@
 package com.poplar.time;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 
 import java.util.Date;
@@ -40,6 +39,18 @@ public class TimeTest1 {
     public static void main(String[] args) {
         System.out.println(TimeTest1.covertUTCToDate("2019-11-23T21:59:55.232Z"));
         System.out.println(TimeTest1.covertDateToUTC(new Date()));
-        System.out.println(TimeTest1.covertDateToLocalByDateFormat(new Date(),"yyyy-MM-dd HH:mm:ss"));
+        System.out.println(TimeTest1.covertDateToLocalByDateFormat(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        System.out.println("-------------");
+        LocalDateTime date = DateTime.now().toLocalDateTime();
+        LocalDateTime date2 = LocalDateTime.now().plusDays(3);
+        System.out.println(date.toString("yy-MMM-dd"));
+        Period p = new Period(date, date2);
+        System.out.println(p.getDays());
+        System.out.println(p.getMonths());
+        System.out.println("-------------");
+
+        Instant i = Instant.now();
+        System.out.println(i);
+        System.out.println("-------------");
     }
 }

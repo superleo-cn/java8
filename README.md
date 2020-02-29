@@ -32,3 +32,14 @@
 
 + 通过CollectorImpl来实现
 + 通过reducing方法来实现，reducing方法本身又是通过CollectorImpl来实现的。
+
+
+## ReferencePipeline
+
+- ReferencePipeline表示流的源阶段与中间阶段
+- ReferencePipeline.Head表示流的源阶段
+
+两者在大部分属性的设定上是类似id，但是也存在一些属性是不同的，比如Head没有previousStage的，而ReferencePipeline是有previousStage的，等等。
+
+> 管道操作是将一系列操作对源中的每一个元素一次性执行完，并不是一批执行完，然后进入下一批的管道
+> 例如： list.stream().filter().map().count() 是对list中每一个元素依次全部执行完 filter,map,count后，然后才执行下一个元素
